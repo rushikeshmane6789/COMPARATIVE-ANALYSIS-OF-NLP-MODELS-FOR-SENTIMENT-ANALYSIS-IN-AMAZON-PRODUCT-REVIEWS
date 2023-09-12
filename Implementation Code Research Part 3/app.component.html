@@ -1,0 +1,117 @@
+<div style="background-color: #80808040;">
+    <!-- Logo at the right top corner -->
+    <div class="logo-upload" style="text-align: right; display: flex; flex-direction: row; justify-content: space-between;">
+        <h1 style="font-family: sans-serif; text-decoration: underline;">Amazon Customer Review Sentiment Analysis</h1>
+        <img src="../assets/Amazon logo.png" alt="Amazon Logo" style="position:relative; width: 15em !important">
+    </div>
+    <div style="height:32rem; display: flex; flex-direction: row;">
+
+        <!-- Input and Output boxes side by side -->
+        <!-- <div class="text-boxes" style="display: flex; justify-content: space-between;"> -->
+            <!-- Input box for text -->
+            <div class="input-box width-30-prcnt" style="margin-right: 1rem; padding: 10px">
+                <textarea placeholder="Enter your text here..." [(ngModel)]="inputText"></textarea>
+            </div>
+
+             <!-- Buttons for functionalities in the middle -->
+        <div class="function-buttons width-30-prcnt" style="align-self: center; padding: 10px">
+            <button class="btn-styling" (click)="onSummarize()">Text Summarization</button><br>
+            <button class="btn-styling" (click)="onAnalyzeSentiment()">Text Classification</button><br>
+            <button class="btn-styling" (click)="onExtractKeywords()">Text Extraction</button>
+        </div>
+
+            <!-- Output box for results -->
+            <div class="output-box width-30-prcnt" style="padding: 10px" *ngIf="!sentimentScore && !keywords.length else elseBlock">
+                    <textarea placeholder="Results will appear here..." [(ngModel)]="outputText" readonly style=""></textarea>
+            </div>
+            <ng-template #elseBlock>
+                <mat-card class="example-card width-30-prcnt" *ngIf="sentimentScore && !keywords.length" style="align-self: center; margin-left: 2em;">
+                    <mat-card-content>
+                      <h2 class="example-h2">Sentiment Analysis Results:</h2>
+                  
+                      <section class="example-section">
+                        <span class="flex-row">
+                            Compound Score:     
+                        <mat-progress-bar
+                            class="example-margin comp-class"
+                            [color]="color"
+                            [mode]="mode"
+                            [value]="sentimentScore.compound"
+                            [bufferValue]="bufferValue">
+                        </mat-progress-bar>
+                        <span>     {{stringSentimentScore.compound}}</span>
+                        </span>
+                      </section>
+                      <section class="example-section">
+                        <span class="flex-row">
+                            Negative Sentiment: 
+                            <mat-progress-bar
+                            class="example-margin neg-class"
+                            [color]="color"
+                            [mode]="mode"
+                            [value]="sentimentScore.neg"
+                            [bufferValue]="bufferValue">
+                            </mat-progress-bar>
+                            <span>     {{stringSentimentScore.neg}}</span>
+                        </span>
+                      </section>
+                      <section class="example-section">
+                        <span class="flex-row">
+                            Neutral Sentiment:   
+                        <mat-progress-bar
+                            class="example-margin neu-class"
+                            [color]="color"
+                            [mode]="mode"
+                            [value]="sentimentScore.neu"
+                            [bufferValue]="bufferValue">
+                        </mat-progress-bar>
+                        <span>     {{stringSentimentScore.neu}}</span>
+                        </span>
+                      </section>
+                      <section class="example-section">
+                        <span class="flex-row">
+                            Positive Sentiment:  
+                        <mat-progress-bar
+                            class="example-margin pos-class"
+                            [color]="color"
+                            [mode]="mode"
+                            [value]="sentimentScore.pos"
+                            [bufferValue]="bufferValue">
+                        </mat-progress-bar>
+                        <span>     {{stringSentimentScore.pos}}</span>
+                        </span>
+                      </section>
+                    </mat-card-content>
+                  </mat-card>
+                <!-- <div *ngIf="sentimentScore && !keywords.length" style="align-self: center; margin-left: 2em;">
+                        <h2>Sentiment Analysis Results:</h2>
+                        <p><strong>Compound Score:</strong> {{ sentimentScore.compound }}</p>
+                        <p><strong>Negative Score:</strong> {{ sentimentScore.neg }}</p>
+                        <p><strong>Neutral Score:</strong> {{ sentimentScore.neu }}</p>
+                        <p><strong>Positive Score:</strong> {{ sentimentScore.pos }}</p>
+                </div> -->
+            </ng-template>
+            <ng-container *ngIf="!sentimentScore && !outputText">
+                 <!-- Display extracted keywords if available -->
+                <div *ngIf="keywords?.length" style="align-self: center; margin-left: 2em;">
+                    <h2>Extracted Keywords:</h2>
+                    <ul>
+                        <li *ngFor="let keyword of keywords">
+                            {{ keyword }}
+                        </li>
+                    </ul>
+                </div>
+            </ng-container>
+                <!-- Display sentiment scores if available -->
+        <!-- </div> -->
+    </div>
+
+    <!-- Box at bottom right corner with student information -->
+    <!-- <div style="position: fixed; bottom: 10px; right: 10px; border: 1px solid black; padding: 10px;">
+        Rushikesh Mane (2240660)
+    </div> -->
+    <footer style="display: flex; justify-content: center;">
+        <img src="../assets/brunel logo.png" alt="Amazon Logo" style="width: 8em;">
+        <span style="font-size: 25px; padding:10px; font-family: sans-serif; align-self: center">Rushikesh Mane (2240660)</span>
+    </footer>
+</div>
